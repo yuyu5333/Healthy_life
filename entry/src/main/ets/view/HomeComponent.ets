@@ -167,12 +167,12 @@ export default struct HomeIndex {
                   if(item?.isOpen ){
 
 
-                    TaskCard({
-                      taskInfoStr: JSON.stringify(item),
-                      clickAction: (isClick: boolean) => this.taskItemAction(item, isClick)
-                    })
-                      .margin({ bottom: Const.DEFAULT_12 })
-                      .height($r('app.float.default_64'))
+                TaskCard({
+                  taskInfoStr: JSON.stringify(item),
+                  clickAction: (isClick: boolean) => this.taskItemAction(item, isClick)
+                })
+                  .margin({ bottom: Const.DEFAULT_12 })
+                  .height($r('app.float.default_64'))
                   }
                 // }
 

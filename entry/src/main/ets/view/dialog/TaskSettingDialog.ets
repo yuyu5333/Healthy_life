@@ -111,12 +111,12 @@ export struct TargetSettingDialog {
         }
         else {
           TextPicker({ range: this.runningRange  })
-            .width(Const.THOUSANDTH_900,)
-            .height(Const.THOUSANDTH_800,)
-            .onChange((value: string | string[]) => {
-              this.currentValue = (value as string)?.split(' ')[0];
-            })
-        }
+          .width(Const.THOUSANDTH_900,)
+          .height(Const.THOUSANDTH_800,)
+          .onChange((value: string | string[]) => {
+            this.currentValue = (value as string)?.split(' ')[0];
+          })
+      }
       }
 
       Row() {

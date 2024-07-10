@@ -78,7 +78,7 @@ export struct TaskCard {
           titleResource: TaskMapById[this.taskInfo.taskID - 1].taskName,
           fontFamily: $r('app.string.HarmonyHeiTi')
         })
-          }
+      }
         }.alignItems(HorizontalAlign.Start).width('75%')
 
         Column() {

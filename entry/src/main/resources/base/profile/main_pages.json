@@ -6,6 +6,7 @@
     "pages/TaskListPage",
     "pages/TaskEditPage",
     "pages/PersonalPage",
+    "pages/HomePage",
     "pages/DeviceListPage",
     "pages/TaskDeletePage"
   ]
