@@ -69,6 +69,18 @@
       "value": "28vp"
     },
     {
+      "name": "default_30",
+      "value": "30vp"
+    },
+    {
+      "name": "default_32",
+      "value": "32vp"
+    },
+    {
+      "name": "default_34",
+      "value": "34vp"
+    },
+    {
       "name": "default_36",
       "value": "36vp"
     },

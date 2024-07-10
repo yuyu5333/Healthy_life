@@ -65,6 +65,7 @@ export class CommonConstants {
   static readonly THOUSANDTH_420: string = '42%'; // ‘42%’
   static readonly THOUSANDTH_500: string = '50%'; // ‘50%’
   static readonly THOUSANDTH_560: string = '56%'; // ‘56%’
+  static readonly THOUSANDTH_700: string = '70%'; // ‘70%’
   static readonly THOUSANDTH_800: string = '80%'; // ‘80%’
   static readonly THOUSANDTH_830: string = '83%'; // ‘83%’
   static readonly THOUSANDTH_880: string = '88%'; // ‘88%’
