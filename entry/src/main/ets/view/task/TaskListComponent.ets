@@ -57,7 +57,6 @@ export default struct TaskList {
           .justifyContent(FlexAlign.SpaceBetween)
           .padding({ left: Const.DEFAULT_12, right: Const.DEFAULT_12 })
         }
-        // 添加任务列表的方框
         .height(Const.THOUSANDTH_80)
         .borderRadius(Const.DEFAULT_12)
         .onClick(() => {

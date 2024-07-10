@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { router } from '@kit.ArkUI';
 
 @Component
 export struct UserBaseInfo {
@@ -26,7 +27,9 @@ export struct UserBaseInfo {
         .height($r('app.float.default_66'))
         .width($r('app.float.default_66'))
         .margin({ top: $r('app.float.default_71') })
-
+        .onClick(() => {
+          router.pushUrl({ url: "pages/PersonalPage" })
+        })
       Column() {
         Text('LV.7')
           .fontSize($r('app.float.default_12'))
