@@ -17,9 +17,19 @@ import { CommonConstants as Const } from '../common/constants/CommonConstants';
 import { BadgePanel } from './BadgePanelComponent';
 import { TitleBar } from './TitleBarComponent';
 import Logger from '../common/utils/Logger';
+//下面添加的
+import TaskInfo from '../viewmodel/TaskInfo';
+import { HomeStore } from '../viewmodel/HomeViewModel';
+
+//添加引用了
 
 @Component
 export struct AchievementIndex {
+  @Prop myHomeStore: HomeStore;
+  // @State myTasks: TaskInfo[] = this.myHomeStore.selectedDayInfo.taskList;
+  private scroller1: Scroller = new Scroller()
+
+
   aboutToAppear() {
     Logger.debug('AchievementIndex', 'aboutToAppear')
   }
@@ -30,8 +40,14 @@ export struct AchievementIndex {
 
   build() {
     Column({ space: Const.DEFAULT_20 }) {
-      TitleBar()
-      BadgePanel()
+      if(1){
+        TitleBar()
+        Scroll(this.scroller1) {
+          BadgePanel({myTasks :this.myHomeStore.selectedDayInfo.taskList})
+        }
+        .width("100%")
+        .height("100%")
+      }
     }
     .padding(Const.DEFAULT_10)
     .height(Const.FULL_HEIGHT)
@@ -39,3 +55,5 @@ export struct AchievementIndex {
     .backgroundColor($r('app.color.black'))
   }
 }
+
+

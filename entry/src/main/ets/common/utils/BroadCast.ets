@@ -15,6 +15,8 @@
 import { CustomDialogCallback } from '../../view/dialog/CustomDialogView';
 import BroadCastCallBackInfo from '../../viewmodel/BroadCastCallBackInfo';
 import TaskInfo from '../../viewmodel/TaskInfo';
+import AchievementInfo from '../../viewmodel/AchievementInfo';
+//添加了emit函数的参数类型
 
 import Logger from './Logger';
 
@@ -81,7 +83,7 @@ export class BroadCast {
     }
   }
 
-  public emit(event: string, args?: (number | number[] | (TaskInfo | CustomDialogCallback)[])) {
+  public emit(event: string, args?: (number | number[] |AchievementInfo| (TaskInfo | CustomDialogCallback)[])) {
     if (!this.callBackArray) {
       Logger.info(FILE_TAG, 'emit broadcast failed for no callback');
       return;

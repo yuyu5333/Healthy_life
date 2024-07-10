@@ -29,4 +29,34 @@ export default class AchievementMapInfo {
   on_73: Resource = $r('app.media.ic_badge_73_on');
   off_99: Resource = $r('app.media.ic_badge_99_off');
   on_99: Resource = $r('app.media.ic_badge_99_on');
+  success_task1:Resource = $r('app.media.ic_task1_success');
+  success_task2:Resource = $r('app.media.ic_task2_success');
+  success_task3:Resource = $r('app.media.ic_task3_success');
+  success_task4:Resource = $r('app.media.ic_task4_success');
+  success_task5:Resource = $r('app.media.ic_task5_success');
+  success_task6:Resource = $r('app.media.ic_task6_success');
+  success_task7:Resource = $r('app.media.apple');
+  undo_task1:Resource = $r('app.media.ic_task1_undo');
+  undo_task2:Resource = $r('app.media.ic_task2_undo');
+  undo_task3:Resource = $r('app.media.ic_task3_undo');
+  undo_task4:Resource = $r('app.media.ic_task4_undo');
+  undo_task5:Resource = $r('app.media.ic_task5_undo');
+  undo_task6:Resource = $r('app.media.ic_task6_undo');
+  undo_task7:Resource = $r('app.media.app_icon');
+
+  statement_task_success: string[] =["起的真早啊！！",
+    "多喝水对身体好，达成目标！！",
+    "多吃苹果，医生远离我！！",
+    "开心的一天啊！！",
+    "我爱刷牙！！",
+    "早睡达成，智力似乎在上涨！！",
+    "跑步强身健体！"];
+
+  task_name: string[] =["早起",
+    "喝水",
+    "吃果",
+    "微笑",
+    "刷牙",
+    "早睡",
+    "跑步"];
 }

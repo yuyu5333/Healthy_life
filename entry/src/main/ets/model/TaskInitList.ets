@@ -128,7 +128,7 @@ export const TaskMapById: Array<ITaskItem> = [
     targetValue: '',
     isOpen: false,
     unit: '次',
-    step: 0,
+    step: 1,
     isInit: true,
     isAlarm: false,
     startTime: '08: 00',
@@ -200,4 +200,4 @@ export const RemindContentMap: Array<RemindContentItem> = [
   }
 ];
 
-export const ACHIEVEMENT_LEVEL_LIST = [3, 7, 30, 50, 73, 99];
+export const ACHIEVEMENT_LEVEL_LIST = [3, 7, 30, 50, 73, 99];//用于设置成就水平参数

@@ -16,7 +16,13 @@
 /**
  * Achievement info
  */
+import TaskInfo from '../viewmodel/TaskInfo';
+///改了
+
+
 export default class AchievementInfo {
   achievementLevel: number = 0;
   showAchievement: boolean = false;
+  lastTaskInfo: TaskInfo = new TaskInfo(0,'',0,'',false,'','','',false,'',false);
+  showSingleDone: boolean = false;
 }

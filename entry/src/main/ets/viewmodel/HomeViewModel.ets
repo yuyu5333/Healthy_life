@@ -28,6 +28,7 @@ import Logger from '../common/utils/Logger';
 import GlobalInfo from './GlobalInfo';
 import WeekCalendarInfo from './WeekCalendarInfo';
 import AchievementInfo from './AchievementInfo';
+import { trustedAppService } from '@kit.DeviceSecurityKit';
 
 @Observed
 export class HomeStore {
@@ -211,35 +212,54 @@ export class HomeStore {
   public getTaskListOfDay(): TaskInfo[] {
     Logger.info('getTaskListOfDay', JSON.stringify(this.selectedDayInfo));
     if (this.selectedDayInfo && this.selectedDayInfo.taskList.length > 0) {
+      let testconsole = this.selectedDayInfo.taskList;
       return this.selectedDayInfo.taskList;
     }
     return [];
   }
 
   public async taskClock(taskInfo: TaskInfo) {
-    let taskItem = await this.updateTask(taskInfo);
+    ///函数return加了任务信息
+    Logger.error('GH-调试打卡入口', `原来的final:${taskInfo.finValue}`);
+    let taskItem = await this.updateTask(taskInfo);//原来的代码段
+    Logger.error('GH-调试更新task出口', `出来的的final:${taskItem.finValue}`);
+    Logger.error('GH-调试更新task出口', JSON.stringify(taskItem));
+
     let dateStr = this.selectedDayInfo?.dateStr;
     if (!taskItem) {
       return {
         achievementLevel: 0,
-        showAchievement: false
+        showAchievement: false,
+        lastTaskInfo:taskItem,
+        showSingleDone: false
       } as AchievementInfo;
     }
 
     this.selectedDayInfo.taskList = this.selectedDayInfo.taskList.map((item) => {
       return item.taskID === taskItem?.taskID ? taskItem : item;
     });
+    Logger.error('taskClock-GH调试任务列表',  JSON.stringify(this.selectedDayInfo.taskList));
+
     let achievementLevel: number = 0;
-    if (taskItem.isDone) {
+    if (taskItem.isDone&&!taskInfo.isDone) {
+      //在updateTask更改后，z=增加准入条件防止重复展示成就。
       let dayInfo = await this.updateDayInfo();
       if (dayInfo && dayInfo?.finTaskNum === dayInfo?.targetTaskNum) {
         achievementLevel = await this.updateAchievement(this.selectedDayInfo.dayInfo);
       }
     }
+
+    ///测试成就弹出
+    // achievementLevel = 3;
+    // Logger.info('GH调试level', `${achievementLevel}`);
+    // Logger.error('taskClock-GH调试level',  `${achievementLevel}`);
+
     this.dateArr = this.dateArr.map((item: WeekDateModel) => dateStr === item.dateStr ? this.selectedDayInfo : item);
     return {
       achievementLevel: achievementLevel,
-      showAchievement: ACHIEVEMENT_LEVEL_LIST.includes(achievementLevel)
+      showAchievement: ACHIEVEMENT_LEVEL_LIST.includes(achievementLevel),
+      lastTaskInfo:taskItem,
+      showSingleDone: this.singleTaskShow(taskItem,taskInfo),
     } as AchievementInfo;
   }
 
@@ -258,13 +278,22 @@ export class HomeStore {
       } else {
         let value = Number(finValue) + step;
         updateTask.isDone = updateTask.isDone || value >= Number(targetValue);
-        updateTask.finValue = updateTask.isDone ? targetValue : `${value}`;
+        //下面的函数为了修改成就系统单项任务完成进度，进行修正
+        // updateTask.finValue = updateTask.isDone ? targetValue : `${value}`;
+        updateTask.finValue = `${value}`;
       }
+
+      // Logger.error('taskClock-GH调试打卡变更taskitem变更后', `目标值：${updateTask.targetValue};当前值：${updateTask.finValue}`);
+
+
       TaskInfoTableApi.updateDataByDate(updateTask, (res: number) => {
-        if (!res || hasExceed) {
+        //这里用来向数据库同步taskinfo，操作正确
+        // if (!res || hasExceed)
+        if (!res){//这里改掉了，希望在完成之后继续计数，更新finValue,而不是不更新
           Logger.error('taskClock-updateTask', JSON.stringify(res));
           reject(res);
         }
+        // Logger.error('taskClock-GH调试打卡变更taskitem输出前', `目标值：${updateTask.targetValue};当前值：${updateTask.finValue}`);
         resolve(updateTask);
       })
     })
@@ -320,5 +349,23 @@ export class HomeStore {
         });
       })
     });
+  }
+
+  singleTaskShow(tasknew: TaskInfo, taskold:TaskInfo): boolean{
+    //用来判断是否任务杠完成或完成目标值的整数倍
+
+    if(tasknew.isDone&&!taskold.isDone){
+      return true;
+    }else if (!tasknew.isDone) {
+      return false;
+    }else if(tasknew.finValue===taskold.finValue){
+      //已完成，但是打卡前后信息无变化
+      return false;
+    }else if( Math.floor(Number(tasknew.finValue)/Number(tasknew.targetValue))> Math.floor(Number(taskold.finValue)/Number(taskold.targetValue))){
+      //完成度又加一
+      return true;
+    }else {
+      return false;
+    }
   }
 }

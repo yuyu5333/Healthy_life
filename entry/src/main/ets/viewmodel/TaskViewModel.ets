@@ -132,7 +132,13 @@ export const addTask = (params: TaskInfo, context: Context) => {
     let taskInfoStr = JSON.stringify(params);
     let taskInfo: TaskInfo = JSON.parse(taskInfoStr);
     taskInfo.date = new Date().toDateString();
-    taskInfo.isDone = false; // 将true改完false
+    // taskInfo.isDone = true;//注释掉防止上来就是已完成
+    if(Number(taskInfo.finValue)>=Number(taskInfo.targetValue)){
+      taskInfo.isDone = true;
+    }else{
+      taskInfo.isDone = false;
+    }
+
     TaskInfoApi.updateDataByDate(taskInfo, (flag: number) => {
       if (!flag) {
         Logger.error('insertTaskSetting', 'updateTaskSetting Error!');

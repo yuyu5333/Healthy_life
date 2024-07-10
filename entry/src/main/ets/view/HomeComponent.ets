@@ -101,11 +101,25 @@ export default struct HomeIndex {
 
   //confirm clockL
   onConfirm(task: TaskInfo) {
+    ///修改了这里来展示singleTask完成
     this.homeStore.taskClock(task).then((res: AchievementInfo) => {
       if (res.showAchievement) {
         let achievementLevel = res.achievementLevel;
+        let isAchievement = 1;
         if (achievementLevel) {
-          this.broadCast.emit(BroadCastType.SHOW_ACHIEVEMENT_DIALOG, achievementLevel);
+          // this.broadCast.emit(BroadCastType.SHOW_ACHIEVEMENT_DIALOG, [achievementLevel, isAchievement]);
+          this.broadCast.emit(BroadCastType.SHOW_ACHIEVEMENT_DIALOG, res);
+
+        } else {
+          this.broadCast.emit(BroadCastType.SHOW_ACHIEVEMENT_DIALOG);
+        }
+      }else if(res.showSingleDone){
+        let taskid = res.lastTaskInfo.taskID;
+        let isAchievement = 0;
+        if (taskid) {
+          // this.broadCast.emit(BroadCastType.SHOW_ACHIEVEMENT_DIALOG, [taskid,  isAchievement]);
+          this.broadCast.emit(BroadCastType.SHOW_ACHIEVEMENT_DIALOG, res);//在emit函数中修改参数类型限制
+
         } else {
           this.broadCast.emit(BroadCastType.SHOW_ACHIEVEMENT_DIALOG);
         }

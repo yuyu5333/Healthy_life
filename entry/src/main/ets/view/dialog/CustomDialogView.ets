@@ -19,6 +19,8 @@ import { BroadCast, BroadCastType } from '../../common/utils/BroadCast';
 import { TaskItem } from '../../model/TaskInitList';
 import TaskInfo from '../../viewmodel/TaskInfo';
 import Logger from '../../common/utils/Logger';
+import AchievementInfo from '../../viewmodel/AchievementInfo';
+///添加了东西
 
 export class CustomDialogCallback {
   confirmCallback: Function = () => {
@@ -31,6 +33,10 @@ export class CustomDialogCallback {
 export struct CustomDialogView {
   @State isShow: boolean = false;
   @Provide achievementLevel: number = 0;
+  @Provide isAchievement: number = 1;
+  @Provide singleTask: TaskInfo = TaskItem;
+  //上面的变量是用来整成就显示的，添加了
+
   @Consume broadCast: BroadCast;
   @Provide currentTask: TaskInfo = TaskItem;
   @Provide dialogCallBack: CustomDialogCallback = new CustomDialogCallback();
@@ -50,9 +56,13 @@ export struct CustomDialogView {
   aboutToAppear() {
     Logger.debug('CustomDialogView', 'aboutToAppear');
     // achievement dialog
-    this.broadCast.on(BroadCastType.SHOW_ACHIEVEMENT_DIALOG, (achievementLevel: number) => {
+    this.broadCast.on(BroadCastType.SHOW_ACHIEVEMENT_DIALOG,
+      // (achievementLevel: number, isAchievement: number, task : TaskInfo)//原本只有一个achievementlevel
+      (res: AchievementInfo) => {
       Logger.debug('CustomDialogView', 'SHOW_ACHIEVEMENT_DIALOG');
-      this.achievementLevel = achievementLevel;
+      this.achievementLevel = res.showAchievement? res.achievementLevel:res.lastTaskInfo.taskID;
+      this.isAchievement = res.showAchievement? 1:0;
+      this.singleTask =res.lastTaskInfo;
       this.achievementDialog.open();
     });
 

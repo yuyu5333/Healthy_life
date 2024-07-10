@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { TaskMapById } from '../../model/TaskInitList';
+import { TaskList, TaskMapById } from '../../model/TaskInitList';
 import HealthText from '../../view/HealthTextComponent';
 import { CommonConstants as Const } from '../../common/constants/CommonConstants';
 import TaskInfo from '../../viewmodel/TaskInfo';
@@ -46,7 +46,18 @@ export struct TaskCard {
   @Builder
   targetValueBuilder() {
     if (this.taskInfo.isDone) {
-      HealthText({ title: '', titleResource: $r('app.string.task_done') })
+      Row() {
+        if(TaskMapById[this.taskInfo.taskID-1].step !==0){
+          HealthText({
+            title: this.taskInfo.finValue || `--`,
+            fontSize: $r('app.float.default_24')
+          })
+          Text(` / ${this.taskInfo.targetValue} ${TaskMapById[this.taskInfo.taskID - 1].unit}`)
+            .labelTextStyle()
+            .fontWeight(Const.FONT_WEIGHT_400)
+        }
+        HealthText({ title: '', titleResource: $r('app.string.task_done') })
+      }
     } else {
       Row() {
         HealthText({
@@ -79,7 +90,7 @@ export struct TaskCard {
           fontFamily: $r('app.string.HarmonyHeiTi')
         })
       }
-        }.alignItems(HorizontalAlign.Start).width('75%')
+        }.alignItems(HorizontalAlign.Start).width('50%')
 
         Column() {
 
@@ -103,7 +114,7 @@ export struct TaskCard {
             }
 
           }
-        }.alignItems(HorizontalAlign.Start).width('75%')
+        }.alignItems(HorizontalAlign.Start).width('50%')
       }
 
       this.targetValueBuilder();

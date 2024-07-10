@@ -51,6 +51,7 @@ struct Index {
   @State editedTaskID: string = '0';
   @State homeStore: HomeStore = new HomeStore(new Date());
 
+  //自己用的变量
   // 设备
   @State deviceStore: DeviceStore = new DeviceStore(new Date());
   //
@@ -149,7 +150,7 @@ struct Index {
       //
 
       TabContent() {
-        AchievementIndex()
+        AchievementIndex({myHomeStore :this.homeStore})
       }
       .tabBar(this.TabBuilder(TabId.ACHIEVEMENT))
 
@@ -167,7 +168,10 @@ struct Index {
     .barMode(BarMode.Fixed)
     .vertical(false)
     .onChange((index) => {
+      //点击之后运行该函数，重新渲染
       this.currentPage = index;
+      let tasklist = this.homeStore.selectedDayInfo.taskList;
+
     })
   }
 }
