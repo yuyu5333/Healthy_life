@@ -117,8 +117,8 @@ export class CommonConstants {
   static readonly SETTING_FINISHED_MESSAGE = '设置完成！！！';
   static readonly SETTING_FINISH_FAILED_MESSAGE = '网络连接错误';
   static readonly CHOOSE_TIME_OUT_RANGE: string = '选择时间超出范围';
-  static readonly NICK_NAME = '旺仔牛奶opo';
-  static readonly SIGNATURE = 'HarmonyOS+++';
+  static readonly NICK_NAME = 'JoIin';
+  static readonly SIGNATURE = '这是一条简短地个人签';
   static readonly HOME_BTN_Z = 2;
   // time range
   static readonly DEFAULT_TIME: string = '08:00';
@@ -132,6 +132,7 @@ export class CommonConstants {
   static readonly EVERYDAY: string = '每天';
   static readonly NO_LENGTH: number = 0;
   static readonly INIT_WEEK_IDS: string = '1, 2, 3, 4, 5, 6, 7';
+  static readonly SETTING: string = '请设置';
   // unit
   static readonly PER_DAY: string = '/ 天';
   // global data key
@@ -160,10 +161,10 @@ export class CommonConstants {
   static readonly OFFSET_24: number = -24;
   // targetSetting Range
   static readonly DRINK_STEP: number = 25;
-  static readonly DRINK_MAX_RANGE: number = 500;
+  static readonly DRINK_MAX_RANGE: number = 250;
   static readonly TIMES_50: number = 50;
   static readonly TIMES_100: number = 100;
-  static readonly EAT_APPLE_RANGE: number = 100;
+  static readonly EAT_APPLE_RANGE: number = 10;
   // letter spacing
   static readonly LETTER_1: number = 0.1;
   static readonly LETTER_34: number = 3.4;

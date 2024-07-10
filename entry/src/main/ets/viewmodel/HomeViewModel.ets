@@ -129,10 +129,10 @@ export class HomeStore {
       let startTime = editedTaskInfo.startTime;
       let endTime = editedTaskInfo.endTime;
       let isOpen = editedTaskInfo.isOpen;
-      let isDone = editedTaskInfo.isDone ? true : false;
-      let finValue = editedTaskInfo.finValue ? editedTaskInfo.finValue : "";
+      let isDone = editedTaskInfo.isDone ? true : false; // bug1.新增
+      let finValue = editedTaskInfo.finValue ? editedTaskInfo.finValue : ""; // bug2.新增
       let task = new TaskInfo(0, dateToStr(new Date()), taskID, targetValue, isAlarm,
-        startTime, endTime, frequency, isDone, finValue, isOpen);
+        startTime, endTime, frequency, isDone, finValue, isOpen); // 修改参数
       this.dateArr = this.dateArr.map((item: WeekDateModel) => {
         if (task.date === item.dateStr) {
           Logger.info('item', JSON.stringify(item));
@@ -255,11 +255,6 @@ export class HomeStore {
       if (step === 0) {
         updateTask.isDone = true;
         updateTask.finValue = targetValue;
-
-        // modify
-        // updateTask.isDone = false;
-        // updateTask.finValue = '--';
-
       } else {
         let value = Number(finValue) + step;
         updateTask.isDone = updateTask.isDone || value >= Number(targetValue);

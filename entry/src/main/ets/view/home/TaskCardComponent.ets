@@ -28,7 +28,6 @@ function allSize() {
 function labelTextStyle() {
   .fontSize($r('app.float.default_16'))
   .fontWeight(Const.FONT_WEIGHT_500)
-  // .fontWeight(Const.FONT_WEIGHT_900)
   .opacity(Const.OPACITY_6)
   .fontFamily($r('app.string.HarmonyHeiTi'))
 }
@@ -69,16 +68,16 @@ export struct TaskCard {
 
         Column() {
 
-          Row({ space: Const.DEFAULT_6 }) {
+      Row({ space: Const.DEFAULT_6 }) {
             // 首页的任务列表的小卡片的字体、图标
-            Image(TaskMapById[this.taskInfo.taskID - 1].icon)
-              .width($r('app.float.default_36')).height($r('app.float.default_36'))
-              .objectFit(ImageFit.Contain)
-            HealthText({
-              title: '',
-              titleResource: TaskMapById[this.taskInfo.taskID - 1].taskName,
-              fontFamily: $r('app.string.HarmonyHeiTi')
-            })
+        Image(TaskMapById[this.taskInfo.taskID - 1].icon)
+          .width($r('app.float.default_36')).height($r('app.float.default_36'))
+          .objectFit(ImageFit.Contain)
+        HealthText({
+          title: '',
+          titleResource: TaskMapById[this.taskInfo.taskID - 1].taskName,
+          fontFamily: $r('app.string.HarmonyHeiTi')
+        })
           }
         }.alignItems(HorizontalAlign.Start).width('75%')
 

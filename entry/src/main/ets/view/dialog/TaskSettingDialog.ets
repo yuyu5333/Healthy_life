@@ -131,14 +131,14 @@ export struct RemindTimeDialog {
           .textAlign(TextAlign.Start)
       }
       .width(Const.THOUSANDTH_900)
-        TimePicker({
+      TimePicker({
           selected: new Date(`${new Date().toDateString()} ${this.settingParams.startTime}`),
+      })
+        .height(Const.THOUSANDTH_800)
+        .useMilitaryTime(true)
+        .onChange((value: TimePickerResult) => {
+          this.currentTime = formatTime(value);
         })
-          .height(Const.THOUSANDTH_800)
-          .useMilitaryTime(true)
-          .onChange((value: TimePickerResult) => {
-            this.currentTime = formatTime(value);
-          })
       Row() {
         Text($r('app.string.cancel')).fontSize(Const.DEFAULT_20).fontColor($r('app.color.blueColor'))
           .onClick(() => {
@@ -171,10 +171,13 @@ export struct FrequencyDialog {
   private currentFrequency: string = Const.EVERYDAY;
   private frequencyChooseRange: FrequencyContentType[] = frequencyRange(this.frequency);
 
+
   setFrequency() {
     const checkedArr = this.frequencyChooseRange.filter((item) => item?.isChecked)
-    if (checkedArr.length === this.frequencyChooseRange.length) {
-    // if (checkedArr.length === this.frequencyChooseRange.length || checkedArr.length === Const.NO_LENGTH) {
+    if (checkedArr.length === Const.NO_LENGTH) {
+      this.currentFrequency = Const.SETTING;
+      return;
+    }else if (checkedArr.length === this.frequencyChooseRange.length ) {
       this.currentFrequency = Const.EVERYDAY;
       this.settingParams.frequency = Const.INIT_WEEK_IDS;
       return;
@@ -186,7 +189,9 @@ export struct FrequencyDialog {
     this.settingParams.frequency = checkedArr.reduce((sum, current) => {
       return sum === '' ? sum + current?.id : sum + ',' + current?.id;
     }, '')
+
   }
+
 
   build() {
     Column() {

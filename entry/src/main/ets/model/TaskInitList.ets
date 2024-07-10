@@ -20,12 +20,12 @@ export interface ITaskItem {
   taskID: number;
   taskName: Resource;
   isOpen: boolean;
-  isDone?: boolean;
+  isDone?: boolean; // bug1.新增
   unit: string;
   icon: Resource;
   dialogBg: Resource;
   targetValue: string;
-  finValue?:string;
+  finValue?: string; // bug2.新增
   isAlarm: boolean;
   startTime: string;
   endTime: string;
@@ -46,12 +46,12 @@ export interface FrequencyContentType {
 }
 
 export const TaskList: TaskInfo[] = [
-  new TaskInfo(0, '', 1, '7:00', true, '', ';', '', false, '', false),
-  new TaskInfo(1, '', 2, '1.5', true, '', ';', '', false, '', false),
-  new TaskInfo(2, '', 3, '3', true, '08: 00', '', '', false, '', false),
-  new TaskInfo(3, '', 4, '1', true, '', ';', '', false, '', false),
-  new TaskInfo(4, '', 5, '21:30', true, '', ';', '', false, '', false),
-  new TaskInfo(5, '', 6, '22:00', true, '', ';', '', false, '', false),
+  new TaskInfo(0, '', 1, '7:00', true, '', ';', '', false, '', true),
+  new TaskInfo(1, '', 2, '1.5', true, '', ';', '', false, '', true),
+  new TaskInfo(2, '', 3, '3', true, '08: 00', '', '', false, '', true),
+  new TaskInfo(3, '', 4, '1', true, '', ';', '', false, '', true),
+  new TaskInfo(4, '', 5, '21:30', true, '', ';', '', false, '', true),
+  new TaskInfo(5, '', 6, '22:00', true, '', ';', '', false, '', true)
 ]
 
 let achievementMap = new AchievementMapInfo();
@@ -64,7 +64,7 @@ export const TaskMapById: Array<ITaskItem> = [
     taskName: $r('app.string.task_morning'),
     icon: $r("app.media.ic_task_morning"),
     dialogBg: $r('app.media.ic_dialog_getup'),
-    targetValue: '08: 00',
+    targetValue: '', // 清除默认初始值
     isOpen: false,
     unit: '',
     step: 0,
@@ -79,10 +79,10 @@ export const TaskMapById: Array<ITaskItem> = [
     taskName: $r('app.string.task_water'),
     icon: $r("app.media.ic_task_water"),
     dialogBg: $r('app.media.ic_dialog_drink'),
-    targetValue: '0.25',
+    targetValue: '',
     isOpen: false,
     unit: 'L',
-    step: 0,
+    step: 0.5,
     isInit: true,
     isAlarm: false,
     startTime: '08: 00',
@@ -94,7 +94,7 @@ export const TaskMapById: Array<ITaskItem> = [
     taskName: $r('app.string.task_apple'),
     icon: $r("app.media.ic_task_apple"),
     dialogBg: $r('app.media.ic_dialog_eat_apples'),
-    targetValue: '1',
+    targetValue: '',
     isOpen: false,
     unit: '个',
     step: 1,
@@ -109,7 +109,7 @@ export const TaskMapById: Array<ITaskItem> = [
     taskName: $r('app.string.task_smile'),
     icon: $r("app.media.ic_task_smile"),
     dialogBg: $r('app.media.ic_dialog_smile'),
-    targetValue: '1',
+    targetValue: '',
     isOpen: false,
     unit: '次',
     step: 0,
@@ -124,7 +124,7 @@ export const TaskMapById: Array<ITaskItem> = [
     taskName: $r('app.string.task_brush'),
     icon: $r("app.media.ic_task_brush"),
     dialogBg: $r('app.media.ic_dialog_brush_teeth'),
-    targetValue: '1',
+    targetValue: '',
     isOpen: false,
     unit: '次',
     step: 0,
@@ -139,7 +139,7 @@ export const TaskMapById: Array<ITaskItem> = [
     taskName: $r('app.string.task_night'),
     icon: $r("app.media.ic_task_night"),
     dialogBg: $r('app.media.ic_dialog_sleep'),
-    targetValue: '20: 00',
+    targetValue: '',
     isOpen: false,
     unit: '',
     step: 0,
@@ -147,11 +147,11 @@ export const TaskMapById: Array<ITaskItem> = [
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: ''
   }
 ]
 
-export const TaskItem = new TaskInfo(1, '', 0, '7:00', true, 'string', 'string;', '', true, '6:58', false);
+export const TaskItem = new TaskInfo(1, '', 0, '7:00', true, 'string', 'string;', '', false, '6:58', false);
 
 export const RemindContentMap: Array<RemindContentItem> = [
   {
