@@ -50,9 +50,6 @@ export struct UserBaseInfo {
         .margin({ bottom: $r('app.float.default_6') })
         .fontWeight(FontWeight.Normal)
         .fontColor($r('app.color.black'))
-        .onClick(() => {
-          router.pushUrl({ url: "pages/HomePage" })
-        })
       // signature
       Text(this.signature).fontSize($r('app.float.default_16')).fontWeight(FontWeight.Normal)
         .fontFamily($r('app.string.PingFangSC_Regular'))

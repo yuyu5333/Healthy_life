@@ -49,6 +49,10 @@
       "value": "关于"
     },
     {
+      "name": "step_count",
+      "value": "步数"
+    },
+    {
       "name": "clock_in",
       "value": "打卡"
     },

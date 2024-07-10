@@ -14,6 +14,7 @@
  */
 
 import { MineInfoList, InfoItem } from '../model/Mine';
+import { router } from '@kit.ArkUI';
 
 @Component
 export struct ListInfo {
@@ -29,6 +30,11 @@ export struct ListInfo {
               .height($r('app.float.default_12'))
               .width($r('app.float.default_7'))
           }
+          .onClick(() => {
+            if (item.id === '4') {
+              router.pushUrl({url : "pages/HomePage"})
+            }
+          })
         }
         .backgroundColor($r('app.color.white'))
         .margin({

@@ -34,6 +34,6 @@ export const MineInfoList: InfoItem[] = [
   },
   {
     id: '4',
-    title: $r('app.string.mine_about')
+    title: $r('app.string.step_count')
   }
 ];
