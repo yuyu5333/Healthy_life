@@ -16,7 +16,7 @@
 import { promptAction } from '@kit.ArkUI';
 import { ITaskItem } from '../../model/TaskInitList';
 import { frequencyRange } from '../../common/utils/Utils';
-import { returnTimeStamp, createAppleRange, createDrinkRange, formatTime } from '../../viewmodel/TaskViewModel';
+import { returnTimeStamp,createRunningRange, createAppleRange, createDrinkRange, formatTime } from '../../viewmodel/TaskViewModel';
 import { taskType } from '../../viewmodel/TaskInfo';
 import { CommonConstants as Const } from '../..//common/constants/CommonConstants';
 import { FrequencyContentType } from '../../model/TaskInitList';
@@ -27,6 +27,7 @@ export struct TargetSettingDialog {
   controller: CustomDialogController = new CustomDialogController({ builder: '' });
   drinkRange: string[] = createDrinkRange();
   appleRange: string[] = createAppleRange();
+  runningRange: string[] = createRunningRange();
   currentValue: string = this.settingParams.targetValue;
   currentTime: string = Const.DEFAULT_TIME;
 
@@ -63,6 +64,7 @@ export struct TargetSettingDialog {
     Column() {
       Row() {
         Text($r('app.string.target_setting')).fontSize(Const.DEFAULT_20).margin({ right: Const.DEFAULT_12 })
+        //判断是否是早起和早睡任务，如果是则添加时间范围
         Text(this.settingParams?.taskID === taskType.getup ?
         Const.GET_UP_TIME_RANGE :
           this.settingParams?.taskID === taskType.sleepEarly ?
@@ -71,7 +73,7 @@ export struct TargetSettingDialog {
       }
       .width(Const.THOUSANDTH_1000)
       .justifyContent(FlexAlign.Start)
-
+      //如果是早起和早睡事件
       if ([taskType.getup, taskType.sleepEarly].indexOf(this.settingParams?.taskID) > Const.HAS_NO_INDEX) {
         TimePicker({
           selected: new Date(`${new Date().toDateString()} 8:00:00`),
@@ -82,12 +84,39 @@ export struct TargetSettingDialog {
             this.currentTime = formatTime(value);
           })
       } else {
-        TextPicker({ range: this.settingParams?.taskID === taskType.drinkWater ? this.drinkRange : this.appleRange })
-          .width(Const.THOUSANDTH_900,)
-          .height(Const.THOUSANDTH_800,)
-          .onChange((value: string | string[]) => {
-            this.currentValue = (value as string)?.split(' ')[0];
-          })
+        // TextPicker({ range: this.settingParams?.taskID === taskType.drinkWater ? this.drinkRange : this.appleRange })
+        //   .width(Const.THOUSANDTH_900,)
+        //   .height(Const.THOUSANDTH_800,)
+        //   .onChange((value: string | string[]) => {
+        //     this.currentValue = (value as string)?.split(' ')[0];
+        //   })
+        if(this.settingParams?.taskID === taskType.drinkWater)
+        {
+          TextPicker({ range: this.drinkRange  })
+             .width(Const.THOUSANDTH_900,)
+             .height(Const.THOUSANDTH_800,)
+             .onChange((value: string | string[]) => {
+               this.currentValue = (value as string)?.split(' ')[0];
+             })
+        }
+        else  if(this.settingParams?.taskID === taskType.eatApple)
+        {
+          TextPicker({ range: this.appleRange  })
+            .width(Const.THOUSANDTH_900,)
+            .height(Const.THOUSANDTH_800,)
+            .onChange((value: string | string[]) => {
+              this.currentValue = (value as string)?.split(' ')[0];
+            })
+
+        }
+        else {
+          TextPicker({ range: this.runningRange  })
+            .width(Const.THOUSANDTH_900,)
+            .height(Const.THOUSANDTH_800,)
+            .onChange((value: string | string[]) => {
+              this.currentValue = (value as string)?.split(' ')[0];
+            })
+        }
       }
 
       Row() {
@@ -131,6 +160,7 @@ export struct RemindTimeDialog {
           .textAlign(TextAlign.Start)
       }
       .width(Const.THOUSANDTH_900)
+
       TimePicker({
           selected: new Date(`${new Date().toDateString()} ${this.settingParams.startTime}`),
       })
@@ -139,6 +169,7 @@ export struct RemindTimeDialog {
         .onChange((value: TimePickerResult) => {
           this.currentTime = formatTime(value);
         })
+
       Row() {
         Text($r('app.string.cancel')).fontSize(Const.DEFAULT_20).fontColor($r('app.color.blueColor'))
           .onClick(() => {
@@ -252,8 +283,4 @@ export struct FrequencyDialog {
     .height(Const.THOUSANDTH_900)
     .padding(Const.DEFAULT_12)
   }
-}
-
-function buildSwitch(config: Configuration) {
-  throw new Error('Function not implemented.');
 }

@@ -26,6 +26,8 @@ import { HealthDataSrcMgr } from '../common/utils/HealthDataSrcMgr';
 import { BroadCast, BroadCastType } from '../common/utils/BroadCast';
 import { CommonConstants as Const } from '../common/constants/CommonConstants';
 import AchievementInfo from '../viewmodel/AchievementInfo';
+import { formatParams, getAllTask, taskIndexDataInit, taskOriginData } from '../viewmodel/TaskViewModel';
+// import
 
 const WHITE_COLOR_0X = 255;
 
@@ -58,7 +60,15 @@ export default struct HomeIndex {
   @Link @Watch('taskChange') editedTaskID: string;
   private scroller: Scroller = new Scroller();
   private yOffset: number = 0;
-
+  @Provide taskList: ITaskItem[] = taskOriginData;
+  @State flat:number=1;
+  onPageShow() {
+    getAllTask().then((res: TaskInfo[]) => {
+      let deepCopyDataStr = JSON.stringify(this.taskList);
+      let deepCopyData: ITaskItem[] = JSON.parse(deepCopyDataStr);
+      this.taskList = taskIndexDataInit(deepCopyData, res);
+    })
+  }
   taskChange() {
     this.homeStore.updateTaskInfoList(this.editedTaskInfo);
   }
@@ -113,27 +123,60 @@ export default struct HomeIndex {
     }
   }
 
+
   editTaskAction() {
     if (this.homeStore.checkCurrentDay()) {
       router.pushUrl({ url: 'pages/TaskListPage' });
     }
   }
 
+// aboutToAppear(): void {
+// }
   build() {
     Stack() {
       Scroll(this.scroller) {
         Column() {
           HomeTopView({ homeStore: $homeStore })
-          Text($r('app.string.task_list')).titleTextStyle()
+           Row(){
+             // Text($r('app.string.task_list')).titleTextStyle()
+             Text(  $r('app.string.task_list'))
+               .fontSize(Const.DEFAULT_20)
+               .fontWeight(FontWeight.Medium)
+             Blank()
+               .layoutWeight(1)
+             Text('...   ')
+               .fontSize(30)
+               .fontWeight(FontWeight.Medium)
+               .onClick(() => {
+                 router.pushUrl({
+                   url: 'pages/TaskDeletePage',
+
+
+                 })
+               }).enabled(this.homeStore.getTaskListOfDay().length > 0)
+          }
+          .width(Const.THOUSANDTH_1000)
+          .justifyContent(FlexAlign.SpaceBetween)
+
           if (this.homeStore.getTaskListOfDay().length > 0) {
+
             Column({ space: Const.DEFAULT_8 }) {
               ForEach(this.homeStore.getTaskListOfDay(), (item: TaskInfo) => {
-                TaskCard({
-                  taskInfoStr: JSON.stringify(item),
-                  clickAction: (isClick: boolean) => this.taskItemAction(item, isClick)
-                })
-                  .margin({ bottom: Const.DEFAULT_12 })
-                  .height($r('app.float.default_64'))
+                // if(this.flat)
+                // {
+                  if(item?.isOpen ){
+
+
+                    TaskCard({
+                      taskInfoStr: JSON.stringify(item),
+                      clickAction: (isClick: boolean) => this.taskItemAction(item, isClick)
+                    })
+                      .margin({ bottom: Const.DEFAULT_12 })
+                      .height($r('app.float.default_64'))
+                  }
+                // }
+
+
               }, (item: TaskInfo) => JSON.stringify(item))
             }
             .onAppear(() => {

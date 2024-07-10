@@ -33,6 +33,8 @@ import { HomeStore } from '../viewmodel/HomeViewModel';
 import GlobalInfoApi from '../common/database/tables/GlobalInfoApi';
 import GlobalInfo from '../viewmodel/GlobalInfo';
 import { GlobalContext } from '../common/utils/GlobalContext';
+import { getAllTask, taskIndexDataInit, taskOriginData } from '../viewmodel/TaskViewModel';
+import TaskInfo from '../viewmodel/TaskInfo';
 
 @Styles
 function allSize() {
@@ -64,6 +66,7 @@ struct Index {
   }
 
   onPageShow() {
+
     Logger.info('onPageShow', JSON.stringify(router.getParams()));
     let params = (router.getParams() ? router.getParams() : {}) as Record<string, Object>;
     let result = params.editTask ? params.editTask as string : '{}';
@@ -78,6 +81,8 @@ struct Index {
       this.checkCurrentTime();
     }
   }
+
+
 
   checkCurrentTime() {
     GlobalInfoApi.query((result: GlobalInfo) => {

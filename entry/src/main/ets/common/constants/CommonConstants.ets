@@ -50,7 +50,7 @@ export class CommonConstants {
     columns: ['id', 'formId', 'formName', 'formDimension']
   } as CommonConstantsInfo
   // TaskNum
-  static readonly TASK_NUM = 6;
+  static readonly TASK_NUM = 7;
   // THOUSANDTH
   static readonly THOUSANDTH_15: string = '1.5%'; // ‘1.5%’
   static readonly THOUSANDTH_12: string = '2.2%'; // ‘2.2%’
@@ -113,6 +113,7 @@ export class CommonConstants {
   static readonly ADD_TASK_TITLE: string = '添加任务';
   static readonly EDIT_TASK_TITLE: string = '编辑任务';
   static readonly DEVICE_ADMIN_TITLE: string = '设备管理';
+  static readonly DELETE_TASK_TITLE: string = '删除任务';
   // prompt message
   static readonly SETTING_FINISHED_MESSAGE = '设置完成！！！';
   static readonly SETTING_FINISH_FAILED_MESSAGE = '网络连接错误';
@@ -144,12 +145,14 @@ export class CommonConstants {
   static readonly SMILE_TASK_NAME: string = '每日微笑';
   static readonly BRUSH_TEETH_TASK_NAME: string = '每日刷牙';
   static readonly SLEEP_TASK_NAME: string = '早睡';
+  static readonly RUNNING_TASK_NAME: string='跑步';
   static readonly GET_UP_CONTENT: string = '该早起啦';
   static readonly DRINK_CONTENT: string = '该喝水啦';
   static readonly EAT_APPLE_CONTENT: string = '该吃苹果啦';
   static readonly SMILE_CONTENT: string = '请保持微笑';
   static readonly BRUSH_TEETH_CONTENT: string = '每日刷牙';
   static readonly SLEEP_CONTENT: string = '早睡';
+  static readonly RUNNING_CONTENT:string='该跑步啦';
   static readonly H_STORE: string = 'healthAppStore';
   static readonly REMINDER_AGENT_TAG: string = 'reminderAgent';
   static readonly PACKAGE_NAME: string = 'com.example.healthy_life';
@@ -165,6 +168,7 @@ export class CommonConstants {
   static readonly TIMES_50: number = 50;
   static readonly TIMES_100: number = 100;
   static readonly EAT_APPLE_RANGE: number = 10;
+  static readonly RUNNING_RANGE: number = 20;
   // letter spacing
   static readonly LETTER_1: number = 0.1;
   static readonly LETTER_34: number = 3.4;
@@ -197,12 +201,14 @@ export enum TaskType {
   Apple = 'apple',
   Smile = 'smile',
   Clean = 'clean',
-  Sleep = 'sleep'
+  Sleep = 'sleep',
+  Running = 'running'
 }
 
 export enum Unit {
   Liter = 'L',
   Pcs = '个',
   Times = '次',
+  Meters = '公里',
   Empty = ''
 }

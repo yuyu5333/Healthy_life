@@ -93,6 +93,10 @@
       "value": "吃苹果"
     },
     {
+      "name": "task_running",
+      "value": "跑步"
+    },
+    {
       "name": "task_water",
       "value": "喝水"
     },

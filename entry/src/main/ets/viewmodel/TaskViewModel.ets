@@ -21,6 +21,7 @@ import { padTo2Digits } from '../common/utils/Utils';
 import TaskInfo, { oneWeek } from './TaskInfo';
 import { TaskMapById, RemindContentMap, ITaskItem } from '../model/TaskInitList';
 import PublishReminderInfo from './PublishReminderInfo';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const publishReminder = reminder.publishReminder;
 const cancelReminder = reminder.cancelReminder;
@@ -120,6 +121,7 @@ export const addTask = (params: TaskInfo, context: Context) => {
         }
       });
     }
+    hilog.debug(0x0, "TAG_test", "insert log:"+JSON.stringify(params))
     TaskInfoApi.updateDataByDate(params, (flag: number) => {
       if (!flag) {
         Logger.error('insertTaskSetting', 'updateTaskSetting Error!');
@@ -233,4 +235,12 @@ export const createAppleRange = () => {
     appleRangeArr.push(`${i} 个`);
   }
   return appleRangeArr;
+}
+
+export const createRunningRange = () => {
+  const runningRangeArr: Array<string> = [];
+  for (let i = 1; i <= Const.RUNNING_RANGE; i++) {
+    runningRangeArr.push(`${i} 公里`);
+  }
+  return runningRangeArr;
 }

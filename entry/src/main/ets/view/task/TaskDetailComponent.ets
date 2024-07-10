@@ -33,6 +33,7 @@ import { HealthDataSrcMgr } from '../../common/utils/HealthDataSrcMgr';
 import { initFrequencyString, addTask, formatParams } from '../../viewmodel/TaskViewModel';
 import { TaskDialogView } from '../dialog/TaskDialogView';
 import { GlobalContext } from '../../common/utils/GlobalContext';
+let flag: number = 1;
 
 @Styles
 function listItemStyle() {
@@ -75,6 +76,7 @@ export default struct TaskDetail {
           url: 'pages/MainPage',
           params: {
             editTask: this.backIndexParams(),
+
           }
         })
         Logger.info('addTaskFinished', JSON.stringify(res));
@@ -88,6 +90,7 @@ export default struct TaskDetail {
     }
     router.back({
       url: 'pages/MainPage',
+
     });
   }
 
