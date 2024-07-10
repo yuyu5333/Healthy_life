@@ -17,10 +17,11 @@ import { display } from '@kit.ArkUI';
 import WeekCalendarMethods, { ScrollTo } from '../../viewmodel/CalendarViewModel';
 import { HomeStore } from '../../viewmodel/HomeViewModel';
 import HealthText from '../../view/HealthTextComponent';
-import { WeekDateModel } from '../../model/WeekCalendarModel';
+import { getPreviousWeek, WeekDateModel } from '../../model/WeekCalendarModel';
 import { sameDate } from '../../common/utils/Utils';
 import { CommonConstants as Const } from '../../common/constants/CommonConstants';
 import Logger from '../../common/utils/Logger';
+import { image } from '@kit.ImageKit';
 
 export const WEEK_DAY_WIDTH: number = 100 / Const.WEEK_DAY_NUM;
 
@@ -35,7 +36,13 @@ export struct WeekCalendar {
   scrollWidth: number = DEFAULT_SCROLL_WIDTH;
   private isLoadMore: boolean = false;
   private isPageScroll: boolean = false;
-
+  @State flag:number=0;
+  private week:number[]=[];
+  private week1:string[]=[];
+  private week2:string[]=[];
+  private week3:string[]=[];
+  private week4:string[]=[];
+  private week5:string[]=[];
   aboutToAppear() {
     try {
       let displayClass = display.getDefaultDisplaySync();
@@ -74,6 +81,22 @@ export struct WeekCalendar {
     WeekCalendarMethods.gotoPreviousWeek(this.isPageScroll, this.homeStore, this.currentPage, this.scroller))
   }
 
+  @Builder
+  CalendarIcon(isCalendar: boolean) {
+    Row() {
+      Image($r('app.media.ic_calendar'))
+        .width($r('app.float.default_26'))
+        .height($r('app.float.default_26'))
+    }
+    .width($r('app.float.default_20'))
+    .height($r('app.float.default_20'))
+    //.padding(16)
+    .justifyContent(FlexAlign.End)
+    .onClick(() => isCalendar ?
+    WeekCalendarMethods.goToNextWeek(this.currentPage, this.isPageScroll, this.homeStore, this.scroller) :
+    WeekCalendarMethods.gotoPreviousWeek(this.isPageScroll, this.homeStore, this.currentPage, this.scroller))
+  }
+
   build() {
     Row() {
       Column() {
@@ -82,11 +105,29 @@ export struct WeekCalendar {
           HealthText({ title: this.homeStore.dateTitle, fontSize: $r('app.float.default_14') })
             .margin($r('app.float.default_12'))
           this.ArrowIcon(true)
+          //this.CalendarIcon(true)
+          Button({ type: ButtonType.Normal, stateEffect: true }){
+            Image($r('app.media.ic_calendar'))
+          }
+
+          .width($r('app.float.default_36'))
+          .height($r('app.float.default_36'))
+          .onClick(()=>{
+              this.flag+=1;
+              if (this.flag%2==0){
+                this.flag=0;
+              }else {
+                this.flag==1;
+              }
+              Logger.info('健康',`${this.flag}`);
+          })
+
         }
         .justifyContent(FlexAlign.Center)
 
         Scroll(this.scroller) {
           Row() {
+
             ForEach(this.homeStore.dateArr, (item: WeekDateModel, index?: number) => {
               Column() {
                 Text(item.weekTitle)
@@ -96,14 +137,90 @@ export struct WeekCalendar {
                   $r('app.color.blueColor') : $r('app.color.titleColor'))
                   .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
                   .opacity(Const.OPACITY_6)
-                Divider()
-                  .margin({ top: Const.DEFAULT_2, bottom: $r('app.float.default_4') })
-                  .width($r('app.float.default_12'))
-                  .color(sameDate(item.date, this.homeStore.showDate) ? $r('app.color.blueColor') : $r('app.color.white'))
+                // Divider()
+                //   .margin({ top: Const.DEFAULT_2, bottom: $r('app.float.default_4') })
+                //   .width($r('app.float.default_12'))
+                //   .color(sameDate(item.date, this.homeStore.showDate) ? $r('app.color.blueColor') : $r('app.color.white'))
                 Image(this.getProgressImg(item))
                   .height($r('app.float.default_28'))
                   .objectFit(ImageFit.Contain)
-                  .margin({ top: Const.THOUSANDTH_80 })
+                  .margin(  Const.THOUSANDTH_160 )
+
+                Text(String(Number(item.date.getDate())-7))
+                  .fontSize($r('app.float.default_12'))
+                  .fontWeight(Const.FONT_WEIGHT_500)
+                  .fontColor(sameDate(item.date, this.homeStore.showDate) ?
+                  $r('app.color.blueColor') : $r('app.color.titleColor'))
+                  .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
+                  .opacity(Const.OPACITY_6)
+
+
+                if(this.flag==1){
+                  Image(this.getProgressImg(item))
+                    .height($r('app.float.default_28'))
+                    .objectFit(ImageFit.Contain)
+                    .margin(  Const.THOUSANDTH_160 )
+
+                  Text(String(item.date.getDate()))
+                    .fontSize($r('app.float.default_12'))
+                    .fontWeight(Const.FONT_WEIGHT_500)
+                    .fontColor(sameDate(item.date, this.homeStore.showDate) ?
+                    $r('app.color.blueColor') : $r('app.color.titleColor'))
+                    .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
+                    .opacity(Const.OPACITY_6)
+
+                  Image(this.getProgressImg(item))
+                    .height($r('app.float.default_28'))
+                    .objectFit(ImageFit.Contain)
+                    .margin(  Const.THOUSANDTH_160 )
+
+                  Text(String(Number(item.date.getDate())+7))
+                    .fontSize($r('app.float.default_12'))
+                    .fontWeight(Const.FONT_WEIGHT_500)
+                    .fontColor(sameDate(item.date, this.homeStore.showDate) ?
+                    $r('app.color.blueColor') : $r('app.color.titleColor'))
+                    .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
+                    .opacity(Const.OPACITY_6)
+
+                  Image(this.getProgressImg(item))
+                    .height($r('app.float.default_28'))
+                    .objectFit(ImageFit.Contain)
+                    .margin(  Const.THOUSANDTH_160 )
+
+                  Text(String(Number(item.date.getDate())+14))
+                    .fontSize($r('app.float.default_12'))
+                    .fontWeight(Const.FONT_WEIGHT_500)
+                    .fontColor(sameDate(item.date, this.homeStore.showDate) ?
+                    $r('app.color.blueColor') : $r('app.color.titleColor'))
+                    .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
+                    .opacity(Const.OPACITY_6)
+                  if (index!==undefined){
+                    if(index<3){
+                      Image(this.getProgressImg(item))
+                        .height($r('app.float.default_28'))
+                        .objectFit(ImageFit.Contain)
+                        .margin(  Const.THOUSANDTH_160 )
+                    }
+                    else{
+                      Image($r('app.media.white_block'))
+                        .height($r('app.float.default_28'))
+                        .objectFit(ImageFit.Contain)
+                        .margin(  Const.THOUSANDTH_160 )
+                    }
+                  }
+
+
+
+                  Text(String(Number(item.date.getDate())+21<=31?item.date.getDate()+21:' '))
+                    .fontSize($r('app.float.default_12'))
+                    .fontWeight(Const.FONT_WEIGHT_500)
+                    .fontColor(sameDate(item.date, this.homeStore.showDate) ?
+                    $r('app.color.blueColor') : $r('app.color.titleColor'))
+                    .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
+                    .opacity(Const.OPACITY_6)
+
+                }
+
               }
               .width(`${WEEK_DAY_WIDTH}%`)
               .justifyContent(FlexAlign.SpaceBetween)
@@ -121,11 +238,11 @@ export struct WeekCalendar {
       .backgroundColor($r('app.color.white'))
       .width(Const.THOUSANDTH_1000)
       .height(Const.THOUSANDTH_1000)
-      .padding({ top: Const.THOUSANDTH_50, bottom: Const.THOUSANDTH_120 })
+      .padding({ top: Const.THOUSANDTH_33, bottom: Const.THOUSANDTH_120 })
 
     }
     .width(Const.THOUSANDTH_1000)
-    .height(Const.THOUSANDTH_420)
+    .height(this.flag?430:178)//Const.THOUSANDTH_420)
     .padding(Const.THOUSANDTH_33)
   }
 
