@@ -19,12 +19,12 @@ import { formatParams } from '../../viewmodel/TaskViewModel';
 import { ITaskItem } from '../../model/TaskInitList';
 
 @Component
-export default struct TaskList {
-  @Consume taskList: ITaskItem[];
+export default struct DeviceList {
+  @Consume deviceList: ITaskItem[];
 
   build() {
     List({ space: Const.LIST_ITEM_SPACE }) {
-      ForEach(this.taskList, (item: ITaskItem) => {
+      ForEach(this.deviceList, (item: ITaskItem) => {
         ListItem() {
           Row() {
             Row() {

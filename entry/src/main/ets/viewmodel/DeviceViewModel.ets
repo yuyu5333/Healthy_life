@@ -30,7 +30,7 @@ import WeekCalendarInfo from './WeekCalendarInfo';
 import AchievementInfo from './AchievementInfo';
 
 @Observed
-export class HomeStore {
+export class DeviceStore {
   public currentDate: Date;
   public dateArr: Array<WeekDateModel> = []; // data source list
   public selectedDay: number; // selected day of on week
@@ -129,10 +129,9 @@ export class HomeStore {
       let startTime = editedTaskInfo.startTime;
       let endTime = editedTaskInfo.endTime;
       let isOpen = editedTaskInfo.isOpen;
-      let isDone = editedTaskInfo.isDone ? true : false;
-      let finValue = editedTaskInfo.finValue ? editedTaskInfo.finValue : "";
+      let isDone = editedTaskInfo.isDone;
       let task = new TaskInfo(0, dateToStr(new Date()), taskID, targetValue, isAlarm,
-        startTime, endTime, frequency, isDone, finValue, isOpen);
+        startTime, endTime, frequency, isDone, targetValue, isOpen);
       this.dateArr = this.dateArr.map((item: WeekDateModel) => {
         if (task.date === item.dateStr) {
           Logger.info('item', JSON.stringify(item));
@@ -255,11 +254,6 @@ export class HomeStore {
       if (step === 0) {
         updateTask.isDone = true;
         updateTask.finValue = targetValue;
-
-        // modify
-        // updateTask.isDone = false;
-        // updateTask.finValue = '--';
-
       } else {
         let value = Number(finValue) + step;
         updateTask.isDone = updateTask.isDone || value >= Number(targetValue);

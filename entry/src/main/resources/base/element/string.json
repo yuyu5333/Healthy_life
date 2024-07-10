@@ -25,6 +25,14 @@
       "value": "首页"
     },
     {
+      "name": "device_page",
+      "value": "设备"
+    },
+    {
+      "name": "device_top",
+      "value": "设备，HarmonyOS 万物互联！"
+    },
+    {
       "name": "mine_personal_data",
       "value": "个人资料"
     },
@@ -59,6 +67,14 @@
     {
       "name": "task_list",
       "value": "任务列表"
+    },
+    {
+      "name": "device_list",
+      "value": "设备列表"
+    },
+    {
+      "name":"no_device",
+      "value": "暂无设备，请添加设备"
     },
     {
       "name": "no_task",

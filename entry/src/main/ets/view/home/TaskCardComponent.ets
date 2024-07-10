@@ -28,6 +28,7 @@ function allSize() {
 function labelTextStyle() {
   .fontSize($r('app.float.default_16'))
   .fontWeight(Const.FONT_WEIGHT_500)
+  // .fontWeight(Const.FONT_WEIGHT_900)
   .opacity(Const.OPACITY_6)
   .fontFamily($r('app.string.HarmonyHeiTi'))
 }
@@ -60,20 +61,54 @@ export struct TaskCard {
     }
   }
 
+  // 首页的任务列表
   build() {
     Row() {
-      Row({ space: Const.DEFAULT_6 }) {
-        Image(TaskMapById[this.taskInfo.taskID - 1].icon)
-          .width($r('app.float.default_36')).height($r('app.float.default_36'))
-          .objectFit(ImageFit.Contain)
-        HealthText({
-          title: '',
-          titleResource: TaskMapById[this.taskInfo.taskID - 1].taskName,
-          fontFamily: $r('app.string.HarmonyHeiTi')
-        })
+
+      Column() {
+
+        Column() {
+
+          Row({ space: Const.DEFAULT_6 }) {
+            // 首页的任务列表的小卡片的字体、图标
+            Image(TaskMapById[this.taskInfo.taskID - 1].icon)
+              .width($r('app.float.default_36')).height($r('app.float.default_36'))
+              .objectFit(ImageFit.Contain)
+            HealthText({
+              title: '',
+              titleResource: TaskMapById[this.taskInfo.taskID - 1].taskName,
+              fontFamily: $r('app.string.HarmonyHeiTi')
+            })
+          }
+        }.alignItems(HorizontalAlign.Start).width('75%')
+
+        Column() {
+
+          Row() {
+            // 添加一个进度条
+            // Text('当前' + this.taskInfo.finValue + ' 目标' + this.taskInfo.targetValue)
+            if(this.taskInfo.taskID == 1 || this.taskInfo.taskID == 6) {}
+            else {
+              if(this.taskInfo.isDone) {
+                Progress({ value: 1, total: 1, type: ProgressType.Linear })
+                  // Progress({ value: 1, total: 5, type: ProgressType.Linear })
+                  .height($r('app.float.default_20'))
+                  .style({strokeWidth: 14, enableSmoothEffect: false})
+              }
+              else {
+                Progress({ value: Number(this.taskInfo.finValue), total: Number(this.taskInfo.targetValue), type: ProgressType.Linear })
+                  // Progress({ value: 1, total: 5, type: ProgressType.Linear })
+                  .height($r('app.float.default_20'))
+                  .style({strokeWidth: 14, enableSmoothEffect: false})
+              }
+            }
+
+          }
+        }.alignItems(HorizontalAlign.Start).width('75%')
       }
 
       this.targetValueBuilder();
+
     }
     .allSize()
     .justifyContent(FlexAlign.SpaceBetween)

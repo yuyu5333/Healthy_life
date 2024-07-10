@@ -73,13 +73,15 @@ export function ratio2percent(ratio: number): string {
   return `${ratio * 100}%`;
 }
 
-export const frequencyRange = () => {
+export const frequencyRange = (str: string) => {
   const frequencyRangeArr: FrequencyContentType[] = [];
   CHINESE_OF_WEEK.forEach((item, index) => {
+    const label = `${WEEK}${item}`;
+    const isChecked = str === '每天' ? true : str.includes(label);
     frequencyRangeArr.push({
       id: (index + 1),
-      label: `${WEEK}${item}`,
-      isChecked: false
+      label: label,
+      isChecked: isChecked
     } as FrequencyContentType)
   });
   return frequencyRangeArr;

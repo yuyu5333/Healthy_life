@@ -20,10 +20,12 @@ export interface ITaskItem {
   taskID: number;
   taskName: Resource;
   isOpen: boolean;
+  isDone?: boolean;
   unit: string;
   icon: Resource;
   dialogBg: Resource;
   targetValue: string;
+  finValue?:string;
   isAlarm: boolean;
   startTime: string;
   endTime: string;
@@ -44,12 +46,12 @@ export interface FrequencyContentType {
 }
 
 export const TaskList: TaskInfo[] = [
-  new TaskInfo(0, '', 1, '7:00', true, '', ';', '', false, '', true),
-  new TaskInfo(1, '', 2, '1.5', true, '', ';', '', false, '', true),
-  new TaskInfo(2, '', 3, '3', true, '08: 00', '', '', false, '', true),
-  new TaskInfo(3, '', 4, '1', true, '', ';', '', false, '', true),
-  new TaskInfo(4, '', 5, '21:30', true, '', ';', '', false, '', true),
-  new TaskInfo(5, '', 6, '22:00', true, '', ';', '', false, '', true)
+  new TaskInfo(0, '', 1, '7:00', true, '', ';', '', false, '', false),
+  new TaskInfo(1, '', 2, '1.5', true, '', ';', '', false, '', false),
+  new TaskInfo(2, '', 3, '3', true, '08: 00', '', '', false, '', false),
+  new TaskInfo(3, '', 4, '1', true, '', ';', '', false, '', false),
+  new TaskInfo(4, '', 5, '21:30', true, '', ';', '', false, '', false),
+  new TaskInfo(5, '', 6, '22:00', true, '', ';', '', false, '', false),
 ]
 
 let achievementMap = new AchievementMapInfo();

@@ -23,8 +23,11 @@ export interface NavItem {
 // tabId
 export enum TabId {
   HOME,
+  //
+  HEALTH,
+  //
   ACHIEVEMENT,
-  MINE
+  MINE,
 }
 
 export const NavList: NavItem[] = [
@@ -34,6 +37,14 @@ export const NavList: NavItem[] = [
     text: $r('app.string.tab_home'),
     id: TabId.HOME
   },
+  // 健康
+  {
+    icon: $r('app.media.ic_tabs_mine_normal'),
+    icon_selected: $r('app.media.ic_tabs_mine_sel'),
+    text: $r('app.string.device_page'),
+    id: TabId.HEALTH
+  },
+  // 健康end
   {
     icon: $r('app.media.ic_tabs_achievement_normal'),
     icon_selected: $r('app.media.ic_tabs_achievement_sel'),

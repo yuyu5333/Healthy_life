@@ -131,16 +131,14 @@ export struct RemindTimeDialog {
           .textAlign(TextAlign.Start)
       }
       .width(Const.THOUSANDTH_900)
-
-      TimePicker({
-        selected: new Date(`${new Date().toDateString()} 8:00:00`),
-      })
-        .height(Const.THOUSANDTH_800)
-        .useMilitaryTime(true)
-        .onChange((value: TimePickerResult) => {
-          this.currentTime = formatTime(value);
+        TimePicker({
+          selected: new Date(`${new Date().toDateString()} ${this.settingParams.startTime}`),
         })
-
+          .height(Const.THOUSANDTH_800)
+          .useMilitaryTime(true)
+          .onChange((value: TimePickerResult) => {
+            this.currentTime = formatTime(value);
+          })
       Row() {
         Text($r('app.string.cancel')).fontSize(Const.DEFAULT_20).fontColor($r('app.color.blueColor'))
           .onClick(() => {
@@ -171,15 +169,17 @@ export struct FrequencyDialog {
   @Consume frequency: string;
   private controller: CustomDialogController = new CustomDialogController({ builder: '' });
   private currentFrequency: string = Const.EVERYDAY;
-  private frequencyChooseRange: FrequencyContentType[] = frequencyRange();
+  private frequencyChooseRange: FrequencyContentType[] = frequencyRange(this.frequency);
 
   setFrequency() {
     const checkedArr = this.frequencyChooseRange.filter((item) => item?.isChecked)
-    if (checkedArr.length === this.frequencyChooseRange.length || checkedArr.length === Const.NO_LENGTH) {
+    if (checkedArr.length === this.frequencyChooseRange.length) {
+    // if (checkedArr.length === this.frequencyChooseRange.length || checkedArr.length === Const.NO_LENGTH) {
       this.currentFrequency = Const.EVERYDAY;
       this.settingParams.frequency = Const.INIT_WEEK_IDS;
       return;
     }
+
     this.currentFrequency = checkedArr.reduce((sum, current) => {
       return sum + ' ' + current?.label;
     }, '')
@@ -198,13 +198,14 @@ export struct FrequencyDialog {
           .textAlign(TextAlign.Start)
       }
       .width(Const.THOUSANDTH_900)
-
+      // 列表
       List() {
         ForEach(this.frequencyChooseRange, (item: FrequencyContentType) => {
           ListItem() {
             Row() {
               Text(item?.label).fontSize(Const.DEFAULT_20)
-              Toggle({ type: ToggleType.Checkbox })
+              Toggle({ type: ToggleType.Switch, isOn: item.isChecked })
+                // 补充内容
                 .onChange((isOn) => {
                   item.isChecked = isOn;
                 })
@@ -215,6 +216,7 @@ export struct FrequencyDialog {
           }
         }, (item: FrequencyContentType) => JSON.stringify(item))
       }
+      // 列表 end
       .divider({
         strokeWidth: Const.DEFAULT_2,
         color: $r('app.color.btnBgColor')
@@ -245,4 +247,8 @@ export struct FrequencyDialog {
     .height(Const.THOUSANDTH_900)
     .padding(Const.DEFAULT_12)
   }
+}
+
+function buildSwitch(config: Configuration) {
+  throw new Error('Function not implemented.');
 }

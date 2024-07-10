@@ -13,27 +13,25 @@
  * limitations under the License.
  */
 
-export interface InfoItem {
-  id: string;
-  title: Resource;
-  icon?: Resource;
-}
+import { ListInfo } from '../view/ListInfo';
+import { UserBaseInfo } from '../view/UserBaseInfo';
+import { CommonConstants as Const } from '../common/constants/CommonConstants';
 
-export const MineInfoList: InfoItem[] = [
-  {
-    id: '1',
-    title: $r('app.string.mine_personal_data')
-  },
-  {
-    id: '2',
-    title: $r('app.string.mine_check_updates')
-  },
-  {
-    id: '3',
-    title: $r('app.string.mine_about')
-  },
-  {
-    id: '4',
-    title: $r('app.string.mine_about')
+@Component
+export struct HealthIndex {
+  @State nickname: string = Const.NICK_NAME;
+  @State signature: string = Const.SIGNATURE;
+
+  build() {
+    Column() {
+      UserBaseInfo({
+        nickname: this.nickname,
+        signature: this.signature
+      });
+
+      ListInfo();
+    }
+    .height(Const.FULL_HEIGHT)
+    .backgroundColor($r('app.color.mineBgColor'))
   }
-];
+}

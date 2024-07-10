@@ -13,6 +13,10 @@
       "value": "健康生活"
     },
     {
+      "name": "Device_label",
+      "value": "设备"
+    },
+    {
       "name": "EntryFormAbility_desc",
       "value": "卡片创建，删除，修改，查询等操作入口"
     },

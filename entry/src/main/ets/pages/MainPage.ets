@@ -20,9 +20,15 @@ import Logger from '../common/utils/Logger';
 import { ITaskItem } from '../model/TaskInitList';
 import { CommonConstants as Const } from '../common/constants/CommonConstants';
 import { NavList, TabId } from '../model/NavItemModel';
+
 import HomeIndex from '../view/HomeComponent';
+import DeviceIndex from '../view/DeviceComponent';
+
 import { AchievementIndex } from '../view/AchievementComponent';
 import { MineIndex } from './MinePage';
+
+import { DeviceStore } from '../viewmodel/DeviceViewModel';
+
 import { HomeStore } from '../viewmodel/HomeViewModel';
 import GlobalInfoApi from '../common/database/tables/GlobalInfoApi';
 import GlobalInfo from '../viewmodel/GlobalInfo';
@@ -42,6 +48,11 @@ struct Index {
   } as ITaskItem;
   @State editedTaskID: string = '0';
   @State homeStore: HomeStore = new HomeStore(new Date());
+
+  // 设备
+  @State deviceStore: DeviceStore = new DeviceStore(new Date());
+  //
+
   private tabController: TabsController = new TabsController();
 
   aboutToAppear() {
@@ -123,6 +134,15 @@ struct Index {
       .tabBar(this.TabBuilder(TabId.HOME))
       .align(Alignment.Start)
 
+      //
+      TabContent() {
+        DeviceIndex({ deviceStore: $deviceStore, editedTaskInfo: $editedTaskInfo, editedTaskID: $editedTaskID })
+          .borderWidth({ bottom: 1 })
+          .borderColor($r('app.color.primaryBgColor'))
+      }
+      .tabBar(this.TabBuilder(TabId.HEALTH))
+      //
+
       TabContent() {
         AchievementIndex()
       }
@@ -134,6 +154,7 @@ struct Index {
           .borderColor($r('app.color.primaryBgColor'))
       }
       .tabBar(this.TabBuilder(TabId.MINE))
+
     }
     .scrollable(false)
     .allSize()
