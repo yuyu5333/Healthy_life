@@ -13,6 +13,10 @@
       "value": "Healthy living"
     },
     {
+      "name": "Device_label",
+      "value": "设备"
+    },
+    {
       "name": "EntryFormAbility_desc",
       "value": "form_description"
     },

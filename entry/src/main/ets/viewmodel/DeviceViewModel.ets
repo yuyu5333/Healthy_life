@@ -129,9 +129,10 @@ export class DeviceStore {
       let startTime = editedTaskInfo.startTime;
       let endTime = editedTaskInfo.endTime;
       let isOpen = editedTaskInfo.isOpen;
-      let isDone = editedTaskInfo.isDone;
+      let isDone = editedTaskInfo.isDone ? true : false;
+      let finValue = editedTaskInfo.finValue ? editedTaskInfo.finValue : "";
       let task = new TaskInfo(0, dateToStr(new Date()), taskID, targetValue, isAlarm,
-        startTime, endTime, frequency, isDone, targetValue, isOpen);
+        startTime, endTime, frequency, isDone, finValue, isOpen);
       this.dateArr = this.dateArr.map((item: WeekDateModel) => {
         if (task.date === item.dateStr) {
           Logger.info('item', JSON.stringify(item));
