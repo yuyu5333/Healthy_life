@@ -48,7 +48,7 @@ struct TaskIndex {
             ForEach(this.deviceArr, (item: string) => {
               ListItem() {
                 Text('' + item)
-                  .width('100%').height(100).fontSize(16)
+                  .width('100%').height(75).fontSize(16)
                   .textAlign(TextAlign.Center).borderRadius(10).backgroundColor(0xFFFFFF)
               }
             }, (item: string) => item)

@@ -65,6 +65,9 @@ export default struct DeviceIndex {
   @Link @Watch('taskChange') editedTaskID: string;
   private scroller: Scroller = new Scroller();
   private yOffset: number = 0;
+  private device_infoArr: string[] = ["消息提醒", "来电提醒", "开启后台运行权限"];
+  private health_infoArr: string[] = ["心率设置", "睡眠设置", "压力设置", "久坐提醒", "达标提醒"];
+  private safe_infoArr: string[] = ["设备密码", "解锁手机", "解锁笔记本", "限制绑定"];
 
   taskChange() {
     this.deviceStore.updateTaskInfoList(this.editedTaskInfo);
@@ -134,13 +137,18 @@ export default struct DeviceIndex {
           DeviceTopView({ deviceStore: $deviceStore })
           Text($r('app.string.device_list')).titleTextStyle()
 
-          Text("查看所有设备")
-            .onClick((  ) => {
-              router.pushUrl({
-                // url: "pages/TaskListPage"
-                url: "pages/DeviceListPage"
+          Row() {
+            Button({ type: ButtonType.Circle, stateEffect: true }) {
+              Image($r('app.media.ic_device')).width(30).height(30)
+            }.width(30).height(30).margin({ 'left': -20 }).backgroundColor(0xFFFFFF)
+            Text("查看所有设备")
+              .onClick((  ) => {
+                router.pushUrl({
+                  url: "pages/DeviceListPage"
+                })
               })
-            })
+          }
+
           // FrequencyDialog()
           if (this.deviceStore.getTaskListOfDay().length > 0) {
             Column({ space: Const.DEFAULT_8 }) {
@@ -174,6 +182,109 @@ export default struct DeviceIndex {
           }
 
           Text('通知设置').titleTextStyle()
+          // 通知列表 start
+          List({ space: 10, initialIndex: 0 }) {
+            ForEach(this.device_infoArr, (item: string) => {
+              ListItem() {
+                Text('' + item)
+                  .width('100%').height(50).fontSize(16)
+                  .textAlign(TextAlign.Center).borderRadius(10).backgroundColor(0xFFFFFF)
+              }
+            }, (item: string) => item)
+          }
+          .listDirection(Axis.Vertical) // 排列方向
+          .scrollBar(BarState.Off)
+          .friction(0.6)
+          .divider({ strokeWidth: 2, color: 0xFFFFFF, startMargin: 20, endMargin: 20 }) // 每行之间的分界线
+          .edgeEffect(EdgeEffect.Spring) // 边缘效果设置为Spring
+          .onScrollIndex((firstIndex: number, lastIndex: number, centerIndex: number) => {
+            console.info('first' + firstIndex)
+            console.info('last' + lastIndex)
+            console.info('center' + centerIndex)
+          })
+          .onScrollVisibleContentChange((start: VisibleListContentInfo, end: VisibleListContentInfo) => {
+            console.log(' start index: ' + start.index +
+              ' start item group area: ' + start.itemGroupArea +
+              ' start index in group: ' + start.itemIndexInGroup)
+            console.log(' end index: ' + end.index +
+              ' end item group area: ' + end.itemGroupArea +
+              ' end index in group: ' + end.itemIndexInGroup)
+          })
+          .onDidScroll((scrollOffset: number, scrollState: ScrollState) => {
+            console.info(`onScroll scrollState = ScrollState` + scrollState + `, scrollOffset = ` + scrollOffset)
+          })
+          .width('90%')
+          // 通知列表 end
+
+          Text('运动健康设置').titleTextStyle()
+          // 运动健康设置列表 start
+          List({ space: 10, initialIndex: 0 }) {
+            ForEach(this.health_infoArr, (item: string) => {
+              ListItem() {
+                Text('' + item)
+                  .width('100%').height(50).fontSize(16)
+                  .textAlign(TextAlign.Center).borderRadius(10).backgroundColor(0xFFFFFF)
+              }
+            }, (item: string) => item)
+          }
+          .listDirection(Axis.Vertical) // 排列方向
+          .scrollBar(BarState.Off)
+          .friction(0.6)
+          .divider({ strokeWidth: 2, color: 0xFFFFFF, startMargin: 20, endMargin: 20 }) // 每行之间的分界线
+          .edgeEffect(EdgeEffect.Spring) // 边缘效果设置为Spring
+          .onScrollIndex((firstIndex: number, lastIndex: number, centerIndex: number) => {
+            console.info('first' + firstIndex)
+            console.info('last' + lastIndex)
+            console.info('center' + centerIndex)
+          })
+          .onScrollVisibleContentChange((start: VisibleListContentInfo, end: VisibleListContentInfo) => {
+            console.log(' start index: ' + start.index +
+              ' start item group area: ' + start.itemGroupArea +
+              ' start index in group: ' + start.itemIndexInGroup)
+            console.log(' end index: ' + end.index +
+              ' end item group area: ' + end.itemGroupArea +
+              ' end index in group: ' + end.itemIndexInGroup)
+          })
+          .onDidScroll((scrollOffset: number, scrollState: ScrollState) => {
+            console.info(`onScroll scrollState = ScrollState` + scrollState + `, scrollOffset = ` + scrollOffset)
+          })
+          .width('90%')
+          // 运动健康设置列表 end
+
+          Text('安全设置').titleTextStyle()
+          // 安全设置 start
+          List({ space: 10, initialIndex: 0 }) {
+            ForEach(this.safe_infoArr, (item: string) => {
+              ListItem() {
+                Text('' + item)
+                  .width('100%').height(50).fontSize(16)
+                  .textAlign(TextAlign.Center).borderRadius(10).backgroundColor(0xFFFFFF)
+              }
+            }, (item: string) => item)
+          }
+          .listDirection(Axis.Vertical) // 排列方向
+          .scrollBar(BarState.Off)
+          .friction(0.6)
+          .divider({ strokeWidth: 2, color: 0xFFFFFF, startMargin: 20, endMargin: 20 }) // 每行之间的分界线
+          .edgeEffect(EdgeEffect.Spring) // 边缘效果设置为Spring
+          .onScrollIndex((firstIndex: number, lastIndex: number, centerIndex: number) => {
+            console.info('first' + firstIndex)
+            console.info('last' + lastIndex)
+            console.info('center' + centerIndex)
+          })
+          .onScrollVisibleContentChange((start: VisibleListContentInfo, end: VisibleListContentInfo) => {
+            console.log(' start index: ' + start.index +
+              ' start item group area: ' + start.itemGroupArea +
+              ' start index in group: ' + start.itemIndexInGroup)
+            console.log(' end index: ' + end.index +
+              ' end item group area: ' + end.itemGroupArea +
+              ' end index in group: ' + end.itemIndexInGroup)
+          })
+          .onDidScroll((scrollOffset: number, scrollState: ScrollState) => {
+            console.info(`onScroll scrollState = ScrollState` + scrollState + `, scrollOffset = ` + scrollOffset)
+          })
+          .width('90%')
+          // 安全设置 end
 
         }
       }

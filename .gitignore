@@ -1,3 +1,4 @@
 /entry/build
-.hvigor/
-.idea/
+.hvigor/*
+.idea/*
+.hvigor/cache

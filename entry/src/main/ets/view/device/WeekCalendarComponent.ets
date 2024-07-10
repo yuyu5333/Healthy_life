@@ -87,6 +87,7 @@ export struct WeekCalendar {
 
         Scroll(this.scroller) {
           Row() {
+            Text("设备 at Device")
             ForEach(this.deviceStore.dateArr, (item: WeekDateModel, index?: number) => {
               Column() {
                 Text(item.weekTitle)
