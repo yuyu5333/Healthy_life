@@ -35,29 +35,35 @@ export default struct HomeTopView {
     Column() {
       Text($r('app.string.target_progress'))
         .titleTextStyle()
+        .height(80)
         .opacity(Const.OPACITY_6)
         .padding({ left: $r('app.float.default_24') })
+        .margin({top:Const.THOUSANDTH_120})
       Row() {
         HealthText({
           title: this.homeStore.getDonePercent(),
-          fontSize: $r('app.float.default_72'),
+          fontSize: $r('app.float.default_66'),
           fontFamily: $r('app.string.HarmonyHeiTi_Bold'),
           fontWeight: Const.FONT_WEIGHT_700
+
         })
         Text('%')
+          .height(20)
           .titleTextStyle()
-          .fontSize($r('app.float.default_40'))
+          .fontSize($r('app.float.default_36'))
           .margin({ top: $r('app.float.default_12'), left: $r('app.float.default_8') })
       }
       .width(Const.THOUSANDTH_1000)
-      .padding({ left: $r('app.float.default_24') })
-
+      .padding({ left: $r('app.float.default_24')})
+      // 这是日历组件
       WeekCalendar({ homeStore: $homeStore })
+
     }
-    .height(Const.THOUSANDTH_500)
+
+    //.height(Const.THOUSANDTH_500)
     .backgroundImagePosition({ x: 0, y: 0 })
     .backgroundImage($r('app.media.ic_home_bg'))
-    .backgroundImageSize({ width: Const.THOUSANDTH_1000, height: Const.THOUSANDTH_900 })
+    .backgroundImageSize({ width: Const.THOUSANDTH_1000, height: 300 })//height: Const.THOUSANDTH_900
     .justifyContent(FlexAlign.End)
   }
 }
