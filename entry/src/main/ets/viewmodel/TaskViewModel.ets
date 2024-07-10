@@ -243,6 +243,22 @@ export const createAppleRange = () => {
   return appleRangeArr;
 }
 
+export const createSmileRange = () => {
+  const smileRangeArr: Array<string> = [];
+  for (let i = 1; i <= Const.SMILE_RANGE; i++) {
+    smileRangeArr.push(`${i} 次`);
+  }
+  return smileRangeArr;
+}
+
+export const createBrushTeethRange = () => {
+  const brushTeethRangeArr: Array<string> = [];
+  for (let i = 1; i <= Const.BRUSH_TEETH_RANGE; i++) {
+    brushTeethRangeArr.push(`${i} 次`);
+  }
+  return brushTeethRangeArr;
+}
+
 export const createRunningRange = () => {
   const runningRangeArr: Array<string> = [];
   for (let i = 1; i <= Const.RUNNING_RANGE; i++) {

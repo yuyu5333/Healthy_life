@@ -16,7 +16,9 @@
 import { promptAction } from '@kit.ArkUI';
 import { ITaskItem } from '../../model/TaskInitList';
 import { frequencyRange } from '../../common/utils/Utils';
-import { returnTimeStamp, createRunningRange, createAppleRange, createDrinkRange, formatTime } from '../../viewmodel/TaskViewModel';
+import { returnTimeStamp, createRunningRange, createAppleRange, createDrinkRange, formatTime,
+  createSmileRange,
+  createBrushTeethRange} from '../../viewmodel/TaskViewModel';
 import { taskType } from '../../viewmodel/TaskInfo';
 import { CommonConstants as Const } from '../..//common/constants/CommonConstants';
 import { FrequencyContentType } from '../../model/TaskInitList';
@@ -27,6 +29,8 @@ export struct TargetSettingDialog {
   controller: CustomDialogController = new CustomDialogController({ builder: '' });
   drinkRange: string[] = createDrinkRange();
   appleRange: string[] = createAppleRange();
+  smileRange: string[] = createSmileRange();
+  brushTeethRange: string[] = createBrushTeethRange();
   runningRange: string[] = createRunningRange();
   currentValue: string = this.settingParams.targetValue;
   currentTime: string = Const.DEFAULT_TIME;
@@ -102,6 +106,26 @@ export struct TargetSettingDialog {
         else  if(this.settingParams?.taskID === taskType.eatApple)
         {
           TextPicker({ range: this.appleRange  })
+            .width(Const.THOUSANDTH_900,)
+            .height(Const.THOUSANDTH_800,)
+            .onChange((value: string | string[]) => {
+              this.currentValue = (value as string)?.split(' ')[0];
+            })
+
+        }
+        else  if(this.settingParams?.taskID === taskType.smile)
+        {
+          TextPicker({ range: this.smileRange  })
+            .width(Const.THOUSANDTH_900,)
+            .height(Const.THOUSANDTH_800,)
+            .onChange((value: string | string[]) => {
+              this.currentValue = (value as string)?.split(' ')[0];
+            })
+
+        }
+        else  if(this.settingParams?.taskID === taskType.brushTeeth)
+        {
+          TextPicker({ range: this.brushTeethRange  })
             .width(Const.THOUSANDTH_900,)
             .height(Const.THOUSANDTH_800,)
             .onChange((value: string | string[]) => {

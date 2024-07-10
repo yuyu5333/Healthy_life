@@ -27,9 +27,10 @@ function targetSetCommon() {
 
 @Extend(Text)
 function targetSettingStyle(isOpen: boolean, taskID: number) {
-  .fontColor(isOpen && taskID !== taskType.smile && taskID !== taskType.brushTeeth ?
-  $r('app.color.titleColor') :
-  $r('app.color.disabledColor'))
+  .fontColor(isOpen?$r('app.color.titleColor') : $r('app.color.disabledColor'))
+  // .fontColor(isOpen && taskID !== taskType.smile && taskID !== taskType.brushTeeth ?
+  // $r('app.color.titleColor') :
+  // $r('app.color.disabledColor'))
 }
 
 @Extend(Text)
