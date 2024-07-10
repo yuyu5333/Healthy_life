@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { preferences } from '@kit.ArkData';
 
 export class GlobalContext {
   private constructor() {
@@ -19,6 +20,7 @@ export class GlobalContext {
 
   private static instance: GlobalContext;
   private _objects = new Map<string, Object>();
+  private _objects1 = new Map<string, Promise<preferences.Preferences>>();
 
   public static getContext(): GlobalContext {
     if (!GlobalContext.instance) {
@@ -33,5 +35,13 @@ export class GlobalContext {
 
   setObject(key: string, objectClass: Object): void {
     this._objects.set(key, objectClass);
+  }
+
+  getObject1(value: string): Promise<preferences.Preferences> | undefined {
+    return this._objects1.get(value);
+  }
+
+  setObject1(key: string, objectClass: Promise<preferences.Preferences>): void {
+    this._objects1.set(key, objectClass);
   }
 }
